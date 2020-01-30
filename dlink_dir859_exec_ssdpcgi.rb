@@ -6,7 +6,6 @@
 class Metasploit3 < Msf::Exploit::Remote
   Rank = ExcellentRanking
 
-  include Msf::Exploit::Remote::HttpClient
   include Msf::Exploit::Remote::Udp
   include Msf::Exploit::CmdStager
 
